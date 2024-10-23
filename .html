@@ -1,0 +1,20 @@
+function fetchLiquidityData() {
+    fetch('https://api.raydium.io/liquidity-pools/?token=ErPFLLCQLK8g2YjRp3dCJXJTQYMaeQNNYY2JLHbCzCke')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const liquidity = data.liquidity || 0; // Adjust according to response
+        document.getElementById('liquidity-number').innerText = `$${liquidity.toLocaleString()}`;
+    })
+    .catch(error => {
+        console.error('Error fetching liquidity data:', error);
+        document.getElementById('liquidity-number').innerText = 'Error loading data';
+    });
+}
+
+// Call the function to fetch liquidity data when the page loads
+fetchLiquidityData();
